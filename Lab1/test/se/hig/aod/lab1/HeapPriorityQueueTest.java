@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 class HeapPriorityQueueTest {
 
-        static final Integer[] INT_FIXTURE = {27, 14, 68, 45, 3, 91, 50, 19, 36, 7};
+        static final Integer[] INT_FIXTURE = {3, 1, 5, 2, 4};
 
         HeapPriorityQueue<Integer> nonEmptyQueue;
         HeapPriorityQueue<Integer> emptyQueue;
@@ -108,10 +108,10 @@ class HeapPriorityQueueTest {
          */
         @Test
         void testDequeueOnNonEmptyQueue() {
-                assertEquals(10, nonEmptyQueue.size());
-                assertEquals(27, nonEmptyQueue.getFront());
+                assertEquals(5, nonEmptyQueue.size());
+                assertEquals(5, nonEmptyQueue.getFront());
                 nonEmptyQueue.dequeue();
-                assertEquals(9, nonEmptyQueue.size());
+                assertEquals(4, nonEmptyQueue.size());
                 assertEquals(14, nonEmptyQueue.getFront());
         }
 
@@ -128,7 +128,7 @@ class HeapPriorityQueueTest {
          */
         @Test
         void testSizeOnNonEmptyQueue() {
-                assertEquals(10, nonEmptyQueue.size());
+                assertEquals(5, nonEmptyQueue.size());
         }
 
         /**
@@ -145,6 +145,50 @@ class HeapPriorityQueueTest {
         @Test
         void testGetFrontOnNonEmptyQueue() {
                 Integer front = nonEmptyQueue.getFront();
-                assertEquals(27, front);
+                assertEquals(5, front);
         }
+
+//        @Test
+//        void testParentIndex() {
+//                int parent = nonEmptyQueue.parent(7);
+//                assertEquals(3, parent);
+//        }
+//
+//        @Test
+//        void testLeftChild() {
+//                int leftChild = nonEmptyQueue.leftChild(7);
+//                assertEquals(15, leftChild);
+//        }
+//
+//        @Test
+//        void testRightChild() {
+//                int rightChild = nonEmptyQueue.rightChild(7);
+//                assertEquals(16, rightChild);
+//        }
+
+//        @Test
+//        void testIsNotRoot() {
+//                assertTrue(nonEmptyQueue.isNotRoot(7));
+//                assertFalse(nonEmptyQueue.isNotRoot(0));
+//        }
+//
+//        @Test
+//        void testIsGreaterThanParent() {
+//                System.out.println(nonEmptyQueue.toString());
+//
+//                //current 14 with index 1 , parent 27 with index 0
+//                assertFalse(nonEmptyQueue.isGreaterThanParent(1));
+//
+//                //current 91 with index 5, parent 68 with index 2
+//                assertTrue(nonEmptyQueue.isGreaterThanParent(5));
+//        }
+//
+//        @Test
+//        void testSwap() {
+//                assertEquals(27, nonEmptyQueue.getFront());
+//
+//                nonEmptyQueue.swap(1);
+//
+//                assertEquals(14, nonEmptyQueue.getFront());
+//        }
 }
