@@ -2,6 +2,8 @@
 out/
 /.idea
 *.iml
+/production
+/test
 
 ### Eclipse ###
 .apt_generated
