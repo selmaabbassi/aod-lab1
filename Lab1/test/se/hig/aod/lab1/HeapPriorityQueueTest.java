@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 class HeapPriorityQueueTest {
 
-        static final Integer[] INT_FIXTURE = {3, 1, 5, 2, 4};
+        static final Integer[] INT_FIXTURE = {78, 35, 49, 96, 21, 10, 65, 54, 87, 3};
 
         HeapPriorityQueue<Integer> nonEmptyQueue;
         HeapPriorityQueue<Integer> emptyQueue;
@@ -88,7 +88,7 @@ class HeapPriorityQueueTest {
         }
 
         /**
-         * Test method for @{@link HeapPriorityQueue#enqueue(Comparable)} on non empty queue should throw @{@link PriorityQueueFullException}
+         * Test method for @{@link HeapPriorityQueue#enqueue(Comparable)} on non-empty queue should throw @{@link PriorityQueueFullException}
          */
         @Test
         void testEnqueueOnFullQueue() {
@@ -104,15 +104,16 @@ class HeapPriorityQueueTest {
         }
 
         /**
-         * Test method for @{@link HeapPriorityQueue#dequeue()} on non empty queue checks that the size of the queue has decreased and that the front has a new value
+         * Test method for @{@link HeapPriorityQueue#dequeue()} on non-empty queue checks that the size of the queue has decreased and that the front has a new value
          */
         @Test
         void testDequeueOnNonEmptyQueue() {
-                assertEquals(5, nonEmptyQueue.size());
-                assertEquals(5, nonEmptyQueue.getFront());
+                assertEquals(10, nonEmptyQueue.size());
+                assertEquals(96, nonEmptyQueue.getFront());
+
                 nonEmptyQueue.dequeue();
-                assertEquals(4, nonEmptyQueue.size());
-                assertEquals(14, nonEmptyQueue.getFront());
+                assertEquals(9, nonEmptyQueue.size());
+                assertEquals(87, nonEmptyQueue.getFront());
         }
 
         /**
@@ -124,11 +125,11 @@ class HeapPriorityQueueTest {
         }
 
         /**
-         * Test method for @{@link HeapPriorityQueue#size()} on non empty queue should be 10
+         * Test method for @{@link HeapPriorityQueue#size()} on non-empty queue should be 10
          */
         @Test
         void testSizeOnNonEmptyQueue() {
-                assertEquals(5, nonEmptyQueue.size());
+                assertEquals(10, nonEmptyQueue.size());
         }
 
         /**
@@ -140,55 +141,11 @@ class HeapPriorityQueueTest {
         }
 
         /**
-         * Test method for @{@link HeapPriorityQueue#getFront()} on non empty queue should return front element of queue
+         * Test method for @{@link HeapPriorityQueue#getFront()} on non-empty queue should return front element of queue
          */
         @Test
         void testGetFrontOnNonEmptyQueue() {
                 Integer front = nonEmptyQueue.getFront();
-                assertEquals(5, front);
+                assertEquals(96, front);
         }
-
-//        @Test
-//        void testParentIndex() {
-//                int parent = nonEmptyQueue.parent(7);
-//                assertEquals(3, parent);
-//        }
-//
-//        @Test
-//        void testLeftChild() {
-//                int leftChild = nonEmptyQueue.leftChild(7);
-//                assertEquals(15, leftChild);
-//        }
-//
-//        @Test
-//        void testRightChild() {
-//                int rightChild = nonEmptyQueue.rightChild(7);
-//                assertEquals(16, rightChild);
-//        }
-
-//        @Test
-//        void testIsNotRoot() {
-//                assertTrue(nonEmptyQueue.isNotRoot(7));
-//                assertFalse(nonEmptyQueue.isNotRoot(0));
-//        }
-//
-//        @Test
-//        void testIsGreaterThanParent() {
-//                System.out.println(nonEmptyQueue.toString());
-//
-//                //current 14 with index 1 , parent 27 with index 0
-//                assertFalse(nonEmptyQueue.isGreaterThanParent(1));
-//
-//                //current 91 with index 5, parent 68 with index 2
-//                assertTrue(nonEmptyQueue.isGreaterThanParent(5));
-//        }
-//
-//        @Test
-//        void testSwap() {
-//                assertEquals(27, nonEmptyQueue.getFront());
-//
-//                nonEmptyQueue.swap(1);
-//
-//                assertEquals(14, nonEmptyQueue.getFront());
-//        }
 }

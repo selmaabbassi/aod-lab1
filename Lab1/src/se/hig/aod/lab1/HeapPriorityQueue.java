@@ -12,6 +12,11 @@ public class HeapPriorityQueue<T extends Comparable<? super T>> implements Prior
         private int size;
         private final int maxSize;
 
+        /**
+         * Creates a new array with @{@link Comparable} elements and sets the array's maxsize
+         *
+         * @param maxSize
+         */
         public HeapPriorityQueue(int maxSize) {
                 this.heap = (T[]) (new Comparable[maxSize]);
                 this.maxSize = maxSize;
@@ -63,9 +68,10 @@ public class HeapPriorityQueue<T extends Comparable<? super T>> implements Prior
                 } else {
                         T dequeuedElement = heap[0];// the root element of the heap
 
-                        // TODO Code that moves the last element in the heap to the root of the heap
+                        T lastElement = heap[size - 1];
+                        heap[0] = lastElement;
                         size--;
-                        // TODO reHeapDown for the new root of the heap
+                        reHeapDown(0);
 
                         return dequeuedElement;
                 }
@@ -82,13 +88,13 @@ public class HeapPriorityQueue<T extends Comparable<? super T>> implements Prior
 
         @Override
         public String toString() {
-                String stringRepresentation = "";
+                StringBuilder stringBuilder = new StringBuilder();
                 for (int i = 0; i < size; i++) {
-                        stringRepresentation = stringRepresentation + heap[i] + " ";
+                        stringBuilder.append(heap[i]).append(" ");
                 }
-                return stringRepresentation;
+                return stringBuilder.toString();
         }
-
+        
         private int parent(int currentIndex) {
                 return (int) Math.floor((double) (currentIndex - 1) / 2);
         }
@@ -98,18 +104,35 @@ public class HeapPriorityQueue<T extends Comparable<? super T>> implements Prior
         }
 
         private int rightChild(int currentIndex) {
-                return leftChild(currentIndex) + 1;
+                return (currentIndex * 2) + 2;
         }
 
         private void reHeapUp(int currentIndex) {
                 if (isNotRoot(currentIndex) && isGreaterThanParent(currentIndex)) {
-                        swap(currentIndex);
+                        swap(currentIndex, parent(currentIndex));
                         reHeapUp(parent(currentIndex));
                 }
         }
 
-        private void reHeapDown(int currentIndex) {
-                // TODO Recursive implementation
+        protected void reHeapDown(int currentIndex) {
+                if (leftChild(currentIndex) > size - 1) {
+                        return;
+                }
+
+                int greaterChild = getGreaterChild(currentIndex);
+
+                if (isGreaterThan(greaterChild, currentIndex)) {
+                        swap(greaterChild, currentIndex);
+                        reHeapDown(greaterChild);
+                }
+        }
+
+        private int getGreaterChild(int currentIndex) {
+                if (leftIsGreaterThanRight(currentIndex)) {
+                        return leftChild(currentIndex);
+                } else {
+                        return rightChild(currentIndex);
+                }
         }
 
         private boolean isNotRoot(int currentIndex) {
@@ -117,13 +140,20 @@ public class HeapPriorityQueue<T extends Comparable<? super T>> implements Prior
         }
 
         private boolean isGreaterThanParent(int currentIndex) {
-                return heap[currentIndex].compareTo(heap[parent(currentIndex)]) > 0;
+                return isGreaterThan(currentIndex, parent(currentIndex));
         }
 
-        private void swap(int currentIndex) {
-                T currentValue = heap[currentIndex];
-                int parent = parent(currentIndex);
-                heap[currentIndex] = heap[parent];
-                heap[parent] = currentValue;
+        private boolean leftIsGreaterThanRight(int currentIndex) {
+                return isGreaterThan(leftChild(currentIndex), rightChild(currentIndex));
+        }
+
+        private boolean isGreaterThan(int index, int otherIndex) {
+                return heap[index].compareTo(heap[otherIndex]) > 0;
+        }
+
+        private void swap(int index, int otherIndex) {
+                T currentValue = heap[index];
+                heap[index] = heap[otherIndex];
+                heap[otherIndex] = currentValue;
         }
 }
