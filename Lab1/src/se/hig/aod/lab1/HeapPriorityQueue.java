@@ -13,10 +13,11 @@ public class HeapPriorityQueue<T extends Comparable<? super T>> implements Prior
         private final int maxSize;
 
         /**
-         * Creates a new array with @{@link Comparable} elements and sets the array's maxsize
+         * Creates a new empty array with @{@link Comparable} elements and sets the array's maxsize
          *
-         * @param maxSize
+         * @param maxSize the max size of the array
          */
+        @SuppressWarnings("unchecked")
         public HeapPriorityQueue(int maxSize) {
                 this.heap = (T[]) (new Comparable[maxSize]);
                 this.maxSize = maxSize;
@@ -94,19 +95,42 @@ public class HeapPriorityQueue<T extends Comparable<? super T>> implements Prior
                 }
                 return stringBuilder.toString();
         }
-        
+
+        /**
+         * Gets the parent index of a node
+         *
+         * @param currentIndex index of current node
+         * @return parent index
+         */
         private int parent(int currentIndex) {
                 return (int) Math.floor((double) (currentIndex - 1) / 2);
         }
 
+        /**
+         * Gets the left node's index
+         *
+         * @param currentIndex index of current node
+         * @return left child index
+         */
         private int leftChild(int currentIndex) {
                 return (currentIndex * 2) + 1;
         }
 
+        /**
+         * Gets the right node's index
+         *
+         * @param currentIndex index of current node
+         * @return right child index
+         */
         private int rightChild(int currentIndex) {
                 return (currentIndex * 2) + 2;
         }
 
+        /**
+         * Takes a node and bubbles it up in the heap
+         *
+         * @param currentIndex index of current node
+         */
         private void reHeapUp(int currentIndex) {
                 if (isNotRoot(currentIndex) && isGreaterThanParent(currentIndex)) {
                         swap(currentIndex, parent(currentIndex));
@@ -114,6 +138,11 @@ public class HeapPriorityQueue<T extends Comparable<? super T>> implements Prior
                 }
         }
 
+        /**
+         * Takes a node and bubbles it down in the heap
+         *
+         * @param currentIndex index of current node
+         */
         protected void reHeapDown(int currentIndex) {
                 if (leftChild(currentIndex) > size - 1) {
                         return;
@@ -127,6 +156,12 @@ public class HeapPriorityQueue<T extends Comparable<? super T>> implements Prior
                 }
         }
 
+        /**
+         * Gets the child with the highest value
+         *
+         * @param currentIndex index of current node
+         * @return greater child index
+         */
         private int getGreaterChild(int currentIndex) {
                 if (leftIsGreaterThanRight(currentIndex)) {
                         return leftChild(currentIndex);
@@ -135,22 +170,54 @@ public class HeapPriorityQueue<T extends Comparable<? super T>> implements Prior
                 }
         }
 
+        /**
+         * Checks if the current node is not the root index
+         *
+         * @param currentIndex index of current node
+         * @return true if the node is not the root element, false if the root is the root element
+         */
         private boolean isNotRoot(int currentIndex) {
                 return currentIndex != 0;
         }
 
+        /**
+         * Checks if the current node's value is greater than it's parent's value
+         *
+         * @param currentIndex index of current node
+         * @return true if current>parent, false if parent>current
+         */
         private boolean isGreaterThanParent(int currentIndex) {
                 return isGreaterThan(currentIndex, parent(currentIndex));
         }
 
+        /**
+         * Checks if the left child's value is greater than the right child's value
+         *
+         * @param currentIndex index of current node
+         * @return true if left>right, false if right>left
+         */
         private boolean leftIsGreaterThanRight(int currentIndex) {
                 return isGreaterThan(leftChild(currentIndex), rightChild(currentIndex));
         }
 
+        /**
+         * Checks if an index's value is greather than another index's value
+         * using @{@link Comparable#compareTo(Object)}
+         *
+         * @param index      of an element
+         * @param otherIndex of an element to compare the values with
+         * @return true if index>otherIndex, false if otherIndex>index
+         */
         private boolean isGreaterThan(int index, int otherIndex) {
                 return heap[index].compareTo(heap[otherIndex]) > 0;
         }
 
+        /**
+         * Swaps places with two elements
+         *
+         * @param index      of element to swap
+         * @param otherIndex of element to swap index's value with
+         */
         private void swap(int index, int otherIndex) {
                 T currentValue = heap[index];
                 heap[index] = heap[otherIndex];

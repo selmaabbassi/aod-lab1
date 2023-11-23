@@ -26,8 +26,8 @@ class HeapPriorityQueueTest {
          */
         @BeforeEach
         void setUp() {
-                nonEmptyQueue = new HeapPriorityQueue<Integer>(INT_FIXTURE.length);
-                emptyQueue = new HeapPriorityQueue<Integer>(INT_FIXTURE.length);
+                nonEmptyQueue = new HeapPriorityQueue<>(INT_FIXTURE.length);
+                emptyQueue = new HeapPriorityQueue<>(INT_FIXTURE.length);
 
                 for (int testData : INT_FIXTURE) {
                         nonEmptyQueue.enqueue(testData);
@@ -53,7 +53,7 @@ class HeapPriorityQueueTest {
         }
 
         /**
-         * Test method for @{@link HeapPriorityQueue#clear()} on non empty queue should clear queue
+         * Test method for @{@link HeapPriorityQueue#clear()} on non-empty queue should clear queue
          */
         @Test
         void testClearEmptyQueue() {
@@ -62,7 +62,7 @@ class HeapPriorityQueueTest {
         }
 
         /**
-         * Test method for @{@link HeapPriorityQueue#isEmpty()} ()} on empty queue should be true
+         * Test method for @{@link HeapPriorityQueue#isEmpty()} on empty queue should be true
          */
         @Test
         void testIsEmptyOnEmptyQueue() {
@@ -70,7 +70,7 @@ class HeapPriorityQueueTest {
         }
 
         /**
-         * Test method for @{@link HeapPriorityQueue#isEmpty()} ()} on non empty queue should be false
+         * Test method for @{@link HeapPriorityQueue#isEmpty()} on non-empty queue should be false
          */
         @Test
         void testIsEmptyOnNonEmptyQueue() {
